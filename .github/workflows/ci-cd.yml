@@ -20,14 +20,19 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '22'
 
       - name: Instalar Dependencias
-        run: npm ci
+        run: npm install
 
-      - name: Ejecutar Tests Unitarios
-        run: npm test
+      - name: Instalar Navegadores de Playwright
+        run: npx playwright install --with-deps
+
+      - name: Ejecutar Tests Unitarios (Vitest)
+        run: npm run test:unit
+
+      - name: Ejecutar Tests E2E (Playwright)
+        run: npm run test:e2e
 
       - name: Desplegar a GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
