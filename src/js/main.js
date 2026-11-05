@@ -1,16 +1,22 @@
-import { state } from './state.js';
-import { renderMilestones } from './ui/milestoneUI.js';
-import { renderBoard } from './ui/boardUI.js';
+import { store } from './core/store.js';
+import { renderMilestones } from './ui/components/milestoneUI.js';
+import { renderBoard } from './ui/components/board.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const boardContainer = document.getElementById('board-container');
   const milestoneControls = document.getElementById('milestone-controls');
 
-  function updateAppUI() {
-    renderMilestones(milestoneControls, state, updateAppUI);
-    renderBoard(boardContainer, state);
+  // Función principal de renderizado suscripta al store
+  function renderApp(currentState) {
+    renderMilestones(milestoneControls, currentState);
+    renderBoard(boardContainer, currentState);
   }
 
-  updateAppUI();
-  console.log('🚀 Interfaz modular cargada y renderizada con éxito.');
+  // Suscribir la UI al store reactivo
+  store.subscribe(renderApp);
+
+  // Render inicial
+  renderApp(store);
+  
+  console.log('🚀 Engineering Rebalance Tool v3.5 - Reactiva y Modular inicializada.');
 });
