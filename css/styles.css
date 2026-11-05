@@ -1,4 +1,0 @@
-.drag-over { border: 2px dashed #3b82f6; background-color: #eff6ff; }
-.card-list::-webkit-scrollbar { width: 6px; }
-.card-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-.is-frozen { border-color: #38bdf8 !important; background-color: #f0f9ff !important; }
