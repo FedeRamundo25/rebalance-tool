@@ -1,6 +1,16 @@
-import { defaultEngineers, defaultMilestones } from './data/initialData.js';
-import { getAllTeams, getVacancyBreakdownByRole } from './engine/capacityEngine.js';
+import { state } from './state.js';
+import { renderMilestones } from './ui/milestoneUI.js';
+import { renderBoard } from './ui/boardUI.js';
 
-console.log('🚀 Rebalance Tool iniciada correctamente');
-console.log('Equipos detectados:', getAllTeams(defaultEngineers));
-console.log('Ingenieros cargados:', defaultEngineers.length);
+document.addEventListener('DOMContentLoaded', () => {
+  const boardContainer = document.getElementById('board-container');
+  const milestoneControls = document.getElementById('milestone-controls');
+
+  function updateAppUI() {
+    renderMilestones(milestoneControls, state, updateAppUI);
+    renderBoard(boardContainer, state);
+  }
+
+  updateAppUI();
+  console.log('🚀 Interfaz modular cargada y renderizada con éxito.');
+});
