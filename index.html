@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100 font-sans antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Rebalance Tool — Portfolio Presentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-full flex flex-col justify-between selection:bg-blue-600 selection:text-white border-t-2 border-blue-500">
+
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-slate-800/80">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-white text-xs tracking-wider">ER</div>
+      <div>
+        <span class="font-semibold text-sm text-slate-200 block leading-none">Engineering Rebalance Tool</span>
+        <span class="text-[11px] text-slate-500 font-mono">v3.5 &bull; Capacity Planning & Rotation Engine</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-5 text-xs font-mono">
+      <a href="https://github.com/federamundo25/rebalance-tool" target="_blank" class="text-slate-400 hover:text-white transition">Repository ↗</a>
+      <a href="./src/" class="bg-blue-600 hover:bg-blue-500 text-white font-sans font-semibold px-4 py-2 rounded transition shadow-sm">Launch App ↗</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow">
+    
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 text-xs font-mono text-blue-400 bg-blue-950/60 border border-blue-800/50 px-3 py-1 rounded-full mb-4">
+        <span>●</span> Portfolio Technical Overview
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Engineering Capacity Planning & <span class="text-blue-500">Talent Rotation Engine</span>
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
+        A deterministic capacity rebalancing web platform built to simulate quarterly talent rotations, track role vacancies, and calculate team headcount coverage across strategic milestones.
+      </p>
+    </div>
+
+    <!-- Live Interactive Demo Section -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 mb-16 shadow-xl">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 mb-6 border-b border-slate-800/80">
+        <div>
+          <h2 class="text-xs font-mono uppercase tracking-wider text-slate-400">00 / Live Interactive Preview</h2>
+          <p class="text-sm font-semibold text-slate-200">Kanban Board & Milestone Allocations</p>
+        </div>
+        <div class="flex gap-2 font-mono text-xs">
+          <span class="px-3 py-1 bg-blue-600 text-white rounded font-semibold cursor-default shadow-sm">Q3 2026 (Active)</span>
+          <span class="px-3 py-1 bg-slate-800 text-slate-400 rounded hover:text-slate-200 cursor-pointer">Q4 2026 (Reorg)</span>
+          <span class="px-3 py-1 bg-slate-800 text-slate-400 rounded hover:text-slate-200 cursor-pointer">Q1 2027 (Scale)</span>
+        </div>
+      </div>
+
+      <!-- Columns preview -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-slate-950/80 rounded-lg p-4 border border-slate-800/60 flex flex-col gap-3">
+          <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+            <span class="font-bold text-xs text-slate-200 uppercase tracking-wide">Fintech & Payments</span>
+            <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">4 members</span>
+          </div>
+          <div class="text-[11px] font-mono bg-slate-900 p-2 rounded border border-slate-800/80 text-slate-300 flex justify-between">
+            <span>Need: <strong class="text-slate-100">5</strong></span>
+            <span>Covered: <strong class="text-blue-400">4</strong></span>
+            <span>Pending: <strong class="text-amber-400">1</strong></span>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-slate-900/90 p-2.5 rounded border border-slate-800 text-xs">
+              <div class="font-medium text-slate-200">Federico Ramundo</div>
+              <div class="text-[10px] font-mono text-slate-400 mt-1 flex justify-between">
+                <span>Backend Senior</span>
+                <span class="text-indigo-400">Full-time</span>
+              </div>
+            </div>
+            <div class="bg-slate-900/90 p-2.5 rounded border border-slate-800 text-xs">
+              <div class="font-medium text-slate-200">Sofía Martínez</div>
+              <div class="text-[10px] font-mono text-slate-400 mt-1 flex justify-between">
+                <span>Frontend Mid</span>
+                <span class="text-indigo-400">Full-time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 rounded-lg p-4 border border-slate-800/60 flex flex-col gap-3">
+          <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+            <span class="font-bold text-xs text-slate-200 uppercase tracking-wide">Core Marketplace</span>
+            <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">3 members</span>
+          </div>
+          <div class="text-[11px] font-mono bg-slate-900 p-2 rounded border border-slate-800/80 text-slate-300 flex justify-between">
+            <span>Need: <strong class="text-slate-100">3</strong></span>
+            <span>Covered: <strong class="text-blue-400">3</strong></span>
+            <span>Pending: <strong class="text-emerald-400">0</strong></span>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-slate-900/90 p-2.5 rounded border border-slate-800 text-xs">
+              <div class="font-medium text-slate-200">Lucas Gómez</div>
+              <div class="text-[10px] font-mono text-slate-400 mt-1 flex justify-between">
+                <span>Fullstack Senior</span>
+                <span class="text-indigo-400">Full-time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 rounded-lg p-4 border border-slate-800/60 flex flex-col gap-3">
+          <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+            <span class="font-bold text-xs text-slate-200 uppercase tracking-wide">Data & Analytics</span>
+            <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">3 members</span>
+          </div>
+          <div class="text-[11px] font-mono bg-slate-900 p-2 rounded border border-slate-800/80 text-slate-300 flex justify-between">
+            <span>Need: <strong class="text-slate-100">4</strong></span>
+            <span>Covered: <strong class="text-blue-400">3</strong></span>
+            <span>Pending: <strong class="text-amber-400">1</strong></span>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-slate-900/90 p-2.5 rounded border border-slate-800 text-xs">
+              <div class="font-medium text-slate-200">Valeria Ríos</div>
+              <div class="text-[10px] font-mono text-slate-400 mt-1 flex justify-between">
+                <span>Data Engineer Sr</span>
+                <span class="text-indigo-400">Full-time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-6 pt-4 border-t border-slate-800/80 text-center">
+        <a href="./src/" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-5 py-2.5 rounded transition shadow-sm">
+          Launch Live Interactive Kanban Tool ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- Technical Sections -->
+    <div class="space-y-12 max-w-4xl">
+      
+      <!-- Section 01 -->
+      <section class="border-l-2 border-slate-800 pl-6 py-1">
+        <span class="text-xs font-mono uppercase tracking-wider text-blue-400 block mb-1">01 / STATE MANAGEMENT & PERSISTENCE</span>
+        <h3 class="text-lg font-bold text-slate-200 mb-2">Reactive Store & LocalStorage Synchronization</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">
+          State operations leverage an event-driven pub/sub pattern (`store.js`) ensuring seamless cross-component synchronization. Any team rotation or vacancy update automatically updates memory state and triggers immediate disk persistence.
+        </p>
+        <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800/80 font-mono text-xs text-slate-300 overflow-x-auto"><code>// Pub/Sub listener dispatch on mutation
+subscribe(listener) {
+  this.listeners.push(listener);
+  return () => { this.listeners = this.listeners.filter(l => l !== listener); };
+}
+notify() {
+  localStorage.setItem('rebalance_state', JSON.stringify(this.state));
+  this.listeners.forEach(fn => fn(this.state));
+}</code></pre>
+      </section>
+
+      <!-- Section 02 -->
+      <section class="border-l-2 border-slate-800 pl-6 py-1">
+        <span class="text-xs font-mono uppercase tracking-wider text-blue-400 block mb-1">02 / DOMAIN LOGIC</span>
+        <h3 class="text-lg font-bold text-slate-200 mb-2">Capacity & Vacancy Calculation Engine</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          The capacity engine calculates headcount deltas per role (Backend, Frontend, QA, Data) across multi-quarter milestones. It detects under-allocated domains and flags pending vacancies in real time.
+        </p>
+      </section>
+
+      <!-- Section 03: Testing Safeguards -->
+      <section class="border-l-2 border-slate-800 pl-6 py-1">
+        <span class="text-xs font-mono uppercase tracking-wider text-blue-400 block mb-1">03 / TESTING & SAFEGUARDS</span>
+        <h3 class="text-lg font-bold text-slate-200 mb-4">Automated Test Coverage</h3>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+            <span class="text-2xl font-black font-mono text-emerald-400 block">~85%</span>
+            <span class="text-[11px] font-mono text-slate-400">Statement Coverage</span>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+            <span class="text-2xl font-black font-mono text-blue-400 block">15+</span>
+            <span class="text-[11px] font-mono text-slate-400">Unit Tests (Vitest)</span>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+            <span class="text-2xl font-black font-mono text-indigo-400 block">2</span>
+            <span class="text-[11px] font-mono text-slate-400">E2E Tests (Playwright)</span>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+            <span class="text-2xl font-black font-mono text-slate-200 block">Node 20</span>
+            <span class="text-[11px] font-mono text-slate-400">CI Execution</span>
+          </div>
+        </div>
+
+        <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800/80 font-mono text-xs text-slate-300 overflow-x-auto"><code>// E2E Playwright validation suite
+test('debe permitir cambiar de hito al hacer clic en las solapas', async ({ page }) => {
+  await page.goto('/');
+  const q4Button = page.locator('#milestone-controls button', { hasText: 'Q4 2026' });
+  await q4Button.click();
+  await expect(q4Button).toHaveClass(/bg-blue-600/);
+});</code></pre>
+      </section>
+
+      <!-- Section 04: CI/CD Pipeline -->
+      <section class="border-l-2 border-slate-800 pl-6 py-1">
+        <span class="text-xs font-mono uppercase tracking-wider text-blue-400 block mb-1">04 / AUTOMATION PIPELINE</span>
+        <h3 class="text-lg font-bold text-slate-200 mb-4">On Push to Main Workflow</h3>
+        
+        <div class="space-y-3 font-mono text-xs">
+          <div class="bg-slate-900 p-3 rounded border border-slate-800/80 flex items-center justify-between">
+            <span class="text-slate-300">01. Setup Environment</span>
+            <span class="text-slate-500">GitHub Actions &bull; Node.js 20 &bull; Ubuntu-latest</span>
+          </div>
+          <div class="bg-slate-900 p-3 rounded border border-slate-800/80 flex items-center justify-between">
+            <span class="text-slate-300">02. Unit Testing Suite</span>
+            <span class="text-emerald-400 font-semibold">npm run test (Vitest)</span>
+          </div>
+          <div class="bg-slate-900 p-3 rounded border border-slate-800/80 flex items-center justify-between">
+            <span class="text-slate-300">03. End-to-End Validation</span>
+            <span class="text-emerald-400 font-semibold">npm run test:e2e (Playwright Chromium)</span>
+          </div>
+          <div class="bg-slate-900 p-3 rounded border border-slate-800/80 flex items-center justify-between">
+            <span class="text-slate-300">04. Static Pages Build & Deploy</span>
+            <span class="text-blue-400 font-semibold">GitHub Pages Automated Deploy</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 05: Local Setup -->
+      <section class="border-l-2 border-slate-800 pl-6 py-1">
+        <span class="text-xs font-mono uppercase tracking-wider text-blue-400 block mb-1">05 / LOCAL SETUP</span>
+        <h3 class="text-lg font-bold text-slate-200 mb-2">Run on Your Machine</h3>
+        <p class="text-sm text-slate-400 mb-4">Execute locally using Node.js and Vite dev server:</p>
+        
+        <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800/80 font-mono text-xs text-slate-300 overflow-x-auto"><code># Clone repository
+git clone https://github.com/federamundo25/rebalance-tool.git
+cd rebalance-tool
+
+# Install dependencies
+npm install
+
+# Run tests
+npm run test
+npm run test:e2e
+
+# Start development server
+npm run dev</code></pre>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto w-full px-6 py-6 border-t border-slate-800/80 text-center font-mono text-xs text-slate-500">
+    Engineering Rebalance Tool &bull; Portfolio Engineering &bull; Federated Architecture
+  </footer>
+
+</body>
+</html>
