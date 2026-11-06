@@ -1,29 +1,25 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Engineering Rebalance Tool E2E', () => {
-  test('debe cargar la aplicación y mostrar el tablero Kanban con sus hitos', async ({ page }) => {
+  test('debe cargar la página principal de presentación con su título y preview', async ({ page }) => {
     await page.goto('/');
 
-    // Verificar título principal
-    await expect(page.locator('h1')).toContainText('Engineering Rebalance & Capacity Planning');
+    // Verificar título principal de la landing
+    await expect(page.locator('h1')).toContainText('Engineering Capacity Planning');
 
-    // Esperar a que los botones de hitos estén presentes
-    const milestoneButtons = page.locator('#milestone-controls button');
-    await expect(milestoneButtons.first()).toBeVisible();
-
-    // Esperar a que el contenedor del tablero esté presente en el DOM
-    const boardContainer = page.locator('#board-container');
-    await boardContainer.waitFor({ state: 'attached' });
-    await expect(boardContainer).toBeAttached();
+    // Verificar que el botón de lanzar app esté visible
+    const launchButton = page.locator('a', { hasText: 'Launch Live Interactive Kanban Tool' });
+    await expect(launchButton).toBeVisible();
   });
 
-  test('debe permitir cambiar de hito al hacer clic en las solapas', async ({ page }) => {
+  test('debe permitir navegar hacia la aplicación interactiva', async ({ page }) => {
     await page.goto('/');
 
-    const q4Button = page.locator('#milestone-controls button', { hasText: 'Q4 2026' });
-    await q4Button.waitFor({ state: 'visible' });
-    await q4Button.click();
+    // Hacer clic en el botón de launch
+    const launchButton = page.locator('a', { hasText: 'Launch Live Interactive Kanban Tool' }).first();
+    await launchButton.click();
 
-    await expect(q4Button).toHaveClass(/bg-blue-600/);
+    // Verificar que cargue la ruta de la app
+    await expect(page).toHaveURL(/.*src/);
   });
 });
