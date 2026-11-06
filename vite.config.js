@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: 'src',
+  base: './', // Rutas relativas para que funcione en GitHub Pages subfolders
   build: {
-    outDir: '../dist',
-    emptyOutDir: true,
+    outDir: 'dist',
   },
   server: {
     port: 5173,
-  },
+  }
 });
