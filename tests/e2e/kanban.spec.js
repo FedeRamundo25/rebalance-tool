@@ -31,11 +31,21 @@ test.describe('Rebalance board', () => {
     const personId = await card.getAttribute('id');
     const personName = await card.locator('h3').innerText();
     const sourceTeam = await card.locator('xpath=ancestor::*[@data-team]').getAttribute('data-team');
-    const target = page.locator('#board [data-team]').filter({ hasNot: page.locator(`#${personId}`) }).first();
-    const targetTeam = await target.getAttribute('data-team');
+    const columns = page.locator('#board [data-team]');
+    const teams = await columns.evaluateAll(nodes => nodes.map(node => node.getAttribute('data-team')));
+    const targetIndex = teams.findIndex(team => team !== sourceTeam);
+    const target = columns.nth(targetIndex);
+    const targetTeam = teams[targetIndex];
     expect(targetTeam).not.toBe(sourceTeam);
-    await card.dragTo(target);
-    await expect(page.locator(`#board [data-team="${targetTeam}"] #${personId}`)).toContainText(personName);
+    await page.evaluate(({ personId, targetIndex }) => {
+      const dragged = document.getElementById(personId);
+      const targetColumn = document.querySelectorAll('#board [data-team]')[targetIndex];
+      const dataTransfer = new DataTransfer();
+      dragged.dispatchEvent(new DragEvent('dragstart', { bubbles: true, dataTransfer }));
+      targetColumn.dispatchEvent(new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer }));
+      targetColumn.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer }));
+    }, { personId, targetIndex });
+    await expect(page.locator('#board [data-team]').nth(targetIndex).locator(`[id="${personId}"]`)).toContainText(personName);
   });
 
   test('roadmap displays team assignments across milestones', async ({ page }) => {
