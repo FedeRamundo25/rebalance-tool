@@ -169,16 +169,16 @@ notify() {
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
-            <span class="text-2xl font-black font-mono text-emerald-400 block">~85%</span>
-            <span class="text-[11px] font-mono text-slate-400">Statement Coverage</span>
-          </div>
-          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
-            <span class="text-2xl font-black font-mono text-blue-400 block">15+</span>
+            <span class="text-2xl font-black font-mono text-emerald-400 block">8</span>
             <span class="text-[11px] font-mono text-slate-400">Unit Tests (Vitest)</span>
           </div>
           <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
-            <span class="text-2xl font-black font-mono text-indigo-400 block">2</span>
+            <span class="text-2xl font-black font-mono text-blue-400 block">8</span>
             <span class="text-[11px] font-mono text-slate-400">E2E Tests (Playwright)</span>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
+            <span class="text-2xl font-black font-mono text-indigo-400 block">120+</span>
+            <span class="text-[11px] font-mono text-slate-400">People in demo dataset</span>
           </div>
           <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-center">
             <span class="text-2xl font-black font-mono text-slate-200 block">Node 20</span>
@@ -187,11 +187,11 @@ notify() {
         </div>
 
         <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800/80 font-mono text-xs text-slate-300 overflow-x-auto"><code>// E2E Playwright validation suite
-test('debe permitir cambiar de hito al hacer clic en las solapas', async ({ page }) => {
-  await page.goto('/');
-  const q4Button = page.locator('#milestone-controls button', { hasText: 'Q4 2026' });
-  await q4Button.click();
-  await expect(q4Button).toHaveClass(/bg-blue-600/);
+test('freeze prevents drag and drop', async ({ page }) => {
+  await page.goto('/app.html');
+  const person = page.locator('#board .card-list > div').first();
+  await person.getByTitle('Congelar (No rotar)').click();
+  await expect(person).toHaveAttribute('draggable', 'false');
 });</code></pre>
       </section>
 

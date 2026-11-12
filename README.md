@@ -1,6 +1,6 @@
-# Engineering Rebalance Tool
+# Rebalance
 
-Herramienta web para revisar asignaciones de ingeniería por hito y simular movimientos entre equipos. Esta versión cubre el tablero interactivo, persistencia local y validación automatizada.
+Tablero de planificación de capacidad y rotaciones de ingeniería. La aplicación conserva la experiencia del HTML original e incluye hitos configurables, filtros, freeze y warning, drag and drop, roadmap, necesidades por rol, historial, e importación y exportación de escenarios.
 
 ## Ejecutar localmente
 
@@ -11,7 +11,19 @@ npm ci
 npm run dev
 ```
 
-Vite sirve la landing en `/` y la aplicación en `/app.html`.
+La landing está en `/` y el tablero completo en `/app.html`.
+
+## Funciones
+
+- Gestionar hitos: crear, renombrar y eliminar escenarios.
+- Filtrar integrantes por persona, rol, seniority, manager, estado y equipo.
+- Marcar warning y congelar integrantes para impedir movimientos.
+- Arrastrar personas entre equipos para crear rotaciones indefinidas; editar asignaciones por hito para rotaciones acotadas.
+- Revisar la distribución futura en el roadmap y el historial de cambios.
+- Configurar necesidades por rol para uno o varios hitos y revisar vacantes pendientes o excesos.
+- Exportar e importar configuración, asignaciones e historial en JSON; exportar el historial en CSV.
+
+Los cambios se guardan en `localStorage`. La lectura valida cada estructura, recupera una copia anterior cuando existe y usa los datos iniciales si el navegador bloquea el almacenamiento o el JSON está corrupto. También se puede restaurar la última copia válida desde la interfaz.
 
 ## Pruebas y build
 
@@ -22,16 +34,4 @@ npm run test:e2e
 npm run build
 ```
 
-El build genera `dist/index.html` (landing) y `dist/app.html` (aplicación). Para revisar la salida: `npm run preview`.
-
-## Persistencia y copias
-
-Las asignaciones se guardan en el almacenamiento local del navegador. El estado se valida al cargar; si está corrupto o no cumple el formato esperado, la aplicación inicia con los datos predeterminados. Antes de guardar cambios se conserva la última copia válida. La aplicación permite descargar e importar un archivo JSON y restaurar la copia anterior disponible.
-
-## CI y despliegue
-
-`.github/workflows/ci-cd.yml` instala las versiones del lockfile mediante `npm ci`, ejecuta tests unitarios y E2E, construye y verifica las dos páginas. GitHub Pages se publica únicamente en `push` a `main` cuando todos los pasos de validación terminan correctamente. El repositorio debe tener GitHub Pages configurado para GitHub Actions.
-
-## Licencia
-
-Este repositorio no incluye un archivo de licencia. No se declara una licencia de uso.
+El build genera `dist/index.html` y `dist/app.html`. El workflow de GitHub instala con `npm ci`, ejecuta pruebas unitarias y E2E, valida el build y despliega GitHub Pages solo tras pasar todos los pasos.
