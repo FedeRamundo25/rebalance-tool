@@ -6,7 +6,7 @@ export function getTeamForMilestone(eng, milestone) {
 }
 
 export function getVacancyBreakdownByRole(teamName, milestone, engineers, teamNeeds) {
-  const needsObj = (teamNeeds[milestone] && teamNeeds[milestone][teamName]) ? teamNeeds[milestone][teamName] : {};
+  const needsObj = (teamNeeds?.[milestone]?.[teamName]) || {};
   const addedCountByRole = {};
 
   engineers.forEach(eng => {

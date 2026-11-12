@@ -1,55 +1,37 @@
-<div align="center">
+# Engineering Rebalance Tool
 
-# 📊 Engineering Rebalance & Capacity Planning Tool
+Herramienta web para revisar asignaciones de ingeniería por hito y simular movimientos entre equipos. Esta versión cubre el tablero interactivo, persistencia local y validación automatizada.
 
-**Enterprise-grade interactive simulation tool designed for engineering leaders to manage team capacity, quarterly rotation planning, and resource rebalancing.**
+## Ejecutar localmente
 
-[![CI & Deploy](https://github.com/FedeRamundo25/rebalance-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/FedeRamundo25/rebalance-tool/actions/workflows/ci.yml)
-[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=flat-square&logo=github)](https://federamundo25.github.io/rebalance-tool/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+Requiere Node.js 20 y npm.
 
-[**Explorar Demo en Vivo**](https://federamundo25.github.io/rebalance-tool/)
-
-</div>
-
----
-
-## 🚀 Sobre el Proyecto
-
-La **Engineering Rebalance Tool** resuelve desafíos organizacionales complejos en entornos de ingeniería de alto crecimiento. Permite realizar un seguimiento transparente de la capacidad, modelos de mitigación de riesgos para rotaciones de squads y análisis orientados a datos para alinear la asignación de talento técnico con los hitos trimestrales estratégicos.
-
----
-
-## 🛠️ Stack Tecnológico
-
-* **Frontend**: Vanilla JavaScript (ESModules), Arquitectura Modular por Componentes.
-* **Estilos**: Tailwind CSS para un diseño moderno y responsivo.
-* **Bundler & Build**: Vite.
-* **Testing**: 
-  * **Unitario**: Vitest (`tests/unit/`)
-  * **E2E (End-to-End)**: Playwright (`tests/e2e/`)
-* **CI/CD**: GitHub Actions (Integración continua, validación de tests, empaquetado y despliegue automático en GitHub Pages).
-
----
-
-## 📐 Capacidades Clave
-
-1. **Tablero Kanban Interactivo**: Gestión visual de flujos de trabajo adaptada para movimientos de equipos de ingeniería y reasignación de capacidad.
-2. **Selección de Hitos (Milestones)**: Selectores de roadmap trimestral para proyectar límites de capacidad y detectar cuellos de botella.
-3. **Calidad Automatizada (Quality Gates)**: Pipeline robusto que garantiza el pase exitoso de todas las pruebas antes de cada despliegue a producción.
-
----
-
-## ⚙️ Instalación y Ejecución Local
-
-Si deseas clonar el repositorio y correrlo localmente:
-
-```bash
-# 1. Clonar el repositorio
-git clone [https://github.com/FedeRamundo25/rebalance-tool.git](https://github.com/FedeRamundo25/rebalance-tool.git)
-
-# 2. Entrar al directorio
-cd rebalance-tool
-
-# 3. Instalar dependencias
+```sh
 npm ci
+npm run dev
+```
+
+Vite sirve la landing en `/` y la aplicación en `/app.html`.
+
+## Pruebas y build
+
+```sh
+npm run test:unit
+npx playwright install chromium
+npm run test:e2e
+npm run build
+```
+
+El build genera `dist/index.html` (landing) y `dist/app.html` (aplicación). Para revisar la salida: `npm run preview`.
+
+## Persistencia y copias
+
+Las asignaciones se guardan en el almacenamiento local del navegador. El estado se valida al cargar; si está corrupto o no cumple el formato esperado, la aplicación inicia con los datos predeterminados. Antes de guardar cambios se conserva la última copia válida. La aplicación permite descargar e importar un archivo JSON y restaurar la copia anterior disponible.
+
+## CI y despliegue
+
+`.github/workflows/ci-cd.yml` instala las versiones del lockfile mediante `npm ci`, ejecuta tests unitarios y E2E, construye y verifica las dos páginas. GitHub Pages se publica únicamente en `push` a `main` cuando todos los pasos de validación terminan correctamente. El repositorio debe tener GitHub Pages configurado para GitHub Actions.
+
+## Licencia
+
+Este repositorio no incluye un archivo de licencia. No se declara una licencia de uso.

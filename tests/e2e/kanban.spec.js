@@ -1,25 +1,41 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Engineering Rebalance Tool E2E', () => {
-  test('debe cargar la página principal de presentación con su título y preview', async ({ page }) => {
+test.describe('Rebalance app', () => {
+  test('landing opens a rendered, interactive board', async ({ page }) => {
     await page.goto('/');
-
-    // Verificar título principal de la landing
     await expect(page.locator('h1')).toContainText('Engineering Capacity Planning');
-
-    // Verificar que el botón de lanzar app esté visible
-    const launchButton = page.locator('a', { hasText: 'Launch Live Interactive Kanban Tool' });
-    await expect(launchButton).toBeVisible();
+    await page.getByRole('link', { name: /Launch Live Interactive Kanban Tool/ }).click();
+    await expect(page).toHaveURL(/app\.html$/);
+    await expect(page.locator('#board-container .engineer-card').first()).toBeVisible();
+    await expect(page.locator('#milestone-controls button')).toHaveCount(3);
   });
 
-  test('debe permitir navegar hacia la aplicación interactiva', async ({ page }) => {
-    await page.goto('/');
+  test('changes milestone, assigns an engineer, and persists the assignment', async ({ page }) => {
+    await page.goto('/app.html');
+    const cards = page.locator('#board-container .engineer-card');
+    await expect(cards.first()).toBeVisible();
+    await page.getByRole('button', { name: 'Q4 2026 (Reorg)' }).click();
+    await expect(page.getByRole('button', { name: 'Q4 2026 (Reorg)' })).toHaveClass(/bg-blue-600/);
+    await cards.first().click();
+    await expect(page.getByRole('heading', { name: 'Editar Asignación' })).toBeVisible();
+    const select = page.locator('#team-select');
+    const original = await select.inputValue();
+    const destination = await select.locator('option').evaluateAll(options => options.find(option => option.value !== options.find(o => o.selected)?.value)?.value);
+    await select.selectOption(destination);
+    await page.getByRole('button', { name: 'Guardar Cambios' }).click();
+    await expect(page.locator('#board-container h3', { hasText: destination })).toBeVisible();
+    await page.reload();
+    await expect(page.locator('#milestone-controls button').filter({ hasText: 'Q4 2026 (Reorg)' })).toHaveClass(/bg-blue-600/);
+    await expect(page.locator('#board-container h3', { hasText: destination })).toBeVisible();
+    expect(destination).not.toBe(original);
+  });
 
-    // Hacer clic en el botón de launch
-    const launchButton = page.locator('a', { hasText: 'Launch Live Interactive Kanban Tool' }).first();
-    await launchButton.click();
-
-    // Verificar que cargue la ruta de la app
-    await expect(page).toHaveURL(/.*src/);
+  test('exports the current state and shows recovery feedback when no backup exists', async ({ page }) => {
+    await page.goto('/app.html');
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Exportar' }).click();
+    expect((await downloadPromise).suggestedFilename()).toBe('rebalance-backup.json');
+    page.on('dialog', dialog => dialog.accept());
+    await page.getByRole('button', { name: 'Restaurar copia' }).click();
   });
 });

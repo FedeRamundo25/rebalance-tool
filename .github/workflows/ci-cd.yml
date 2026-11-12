@@ -1,42 +1,56 @@
-name: CI/CD Rebalance Tool
+name: CI and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build-and-test:
+  validate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout del Repositorio
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Configurar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-
-      - name: Instalar Dependencias
-        run: npm install
-
-      - name: Instalar Navegadores de Playwright
-        run: npx playwright install --with-deps
-
-      - name: Ejecutar Tests Unitarios (Vitest)
-        run: npm run test:unit
-
-      - name: Ejecutar Tests E2E (Playwright)
-        run: npm run test:e2e
-
-      - name: Desplegar a GitHub Pages
+          node-version: 20
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run unit and end-to-end tests
+        run: npm test
+      - name: Build site
+        run: npm run build
+      - name: Verify both pages were built
+        run: test -f dist/index.html && test -f dist/app.html
+      - name: Upload Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: dist
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
