@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: rebalance-api
+    runtime: node
+    plan: free
+    region: ohio
+    rootDir: api
+    buildCommand: npm ci --include=dev && npm run build && npm run migrate
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        sync: false
+      - key: ALLOWED_EMAILS
+        sync: false

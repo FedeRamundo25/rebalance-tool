@@ -1,8 +1,14 @@
 node_modules/
 dist/
+web/node_modules/
+web/dist/
+api/node_modules/
+api/dist/
+web/.wrangler/
 playwright-report/
 test-results/
 coverage/
 .DS_Store
 .env*
 !.env.example
+*.tsbuildinfo
