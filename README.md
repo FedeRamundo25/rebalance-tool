@@ -28,8 +28,8 @@ npm run migrate --prefix api
 ## Despliegues previstos
 
 - **Cloudflare Pages:** directorio raíz `web`, comando de build `npm ci --include=dev && npm run build`, salida `dist`. Configurar `RENDER_API_ORIGIN` con la URL del servicio `rebalance-api` en Render. La función de Pages reenvía `/api/*` y `/auth/*` para mantener la sesión en el mismo origen del frontend.
-- **Render Web Service:** el archivo `render.yaml` define el servicio `rebalance-api`, sus comandos de build e inicio, el chequeo de salud y las variables necesarias. `DATABASE_URL`, las credenciales OAuth y los emails permitidos se cargan como secretos en Render; `SESSION_SECRET` se genera allí.
-- **Neon:** usar la cadena Postgres del pooler y guardarla como `DATABASE_URL` en Render.
+- **Render Web Service:** el archivo `render.yaml` define el servicio `rebalance-api`, sus comandos de build e inicio, el chequeo de salud y las variables necesarias. Las dos cadenas de conexión y las credenciales OAuth se cargan como secretos en Render; `SESSION_SECRET` se genera allí.
+- **Neon:** usar la cadena del pooler como `DATABASE_URL` para las consultas normales de la API y la cadena directa como `DATABASE_URL_UNPOOLED` para migraciones.
 - **Google OAuth:** registrar como URI de callback la URL del frontend más `/auth/google/callback`. Guardar `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_CALLBACK_URL`, `SESSION_SECRET` y la lista de acceso en Render.
 
 El plan gratuito de Render puede dormir la API cuando queda inactiva; Neon también aplica límites de cómputo y almacenamiento. El JSON se puede exportar para respaldar los datos.
