@@ -39,7 +39,9 @@ for (let attempt = 1; attempt <= 30; attempt += 1) {
 }
 
 lastFailure = 'The API health endpoint has not reported healthy yet.';
-for (let attempt = 1; attempt <= 8; attempt += 1) {
+// Render's free instance can take 50+ seconds to wake after inactivity.
+const apiHealthAttempts = 18;
+for (let attempt = 1; attempt <= apiHealthAttempts; attempt += 1) {
   try {
     const healthResponse = await fetch(new URL('/api/health', baseUrl), { cache: 'no-store', signal: AbortSignal.timeout(20_000) });
     if (!healthResponse.ok) throw new Error(`The API returned HTTP ${healthResponse.status}.`);
@@ -49,8 +51,8 @@ for (let attempt = 1; attempt <= 8; attempt += 1) {
     process.exit(0);
   } catch (error) {
     lastFailure = error instanceof Error ? error.message : String(error);
-    console.log(`API health check ${attempt}/8: ${lastFailure}`);
-    if (attempt < 8) await pause(10_000);
+    console.log(`API health check ${attempt}/${apiHealthAttempts}: ${lastFailure}`);
+    if (attempt < apiHealthAttempts) await pause(10_000);
   }
 }
 
