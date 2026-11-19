@@ -32,6 +32,6 @@ describe('capacity rules used by the Rebalance board', () => {
   });
 
   it('returns stable unique teams from people and planned assignments', () => {
-    expect(getAllTeams(people, assignments)).toEqual(['Delivery', 'Payments', 'Payments Management', 'Platform']);
+    expect(getAllTeams(people, assignments)).toEqual(['Delivery', 'Payments', 'Platform']);
   });
 });

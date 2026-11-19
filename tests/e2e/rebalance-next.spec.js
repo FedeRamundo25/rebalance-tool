@@ -39,7 +39,7 @@ async function openNewApp(page) {
     return route.fulfill({ status: 200, json: { ok: true } });
   });
   await page.goto('http://localhost:4174');
-  await expect(page.getByRole('heading', { name: 'Plan de equipos' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Rebalanceo y Planificación de Capacidad' })).toBeVisible();
   return () => board;
 }
 
@@ -52,10 +52,19 @@ test.describe('React Rebalance app', () => {
     await card.getByTitle('Congelar').click();
     await expect(card).toHaveClass(/frozen/);
     await card.getByTitle('Descongelar').click();
+    await expect(card).not.toHaveClass(/frozen/);
     const beta = page.locator('.team-column').filter({ has: page.getByRole('heading', { name: 'Beta' }) });
-    await card.dragTo(beta);
+    await page.evaluate(() => {
+      const source = document.querySelector('.person-card');
+      const target = [...document.querySelectorAll('.team-column')].find(column => column.querySelector('h2')?.textContent === 'Beta');
+      const dataTransfer = new DataTransfer();
+      source.dispatchEvent(new DragEvent('dragstart', { bubbles: true, dataTransfer }));
+      target.dispatchEvent(new DragEvent('dragenter', { bubbles: true, cancelable: true, dataTransfer }));
+      target.dispatchEvent(new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer }));
+      target.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer }));
+    });
+    await expect.poll(() => getBoard().assignments[0]?.teamName).toBe('Beta');
     await expect(beta.locator('.person-card').filter({ hasText: 'Ava Demo' })).toBeVisible();
-    expect(getBoard().assignments[0].teamName).toBe('Beta');
   });
 
   test('edits team needs and renders the roadmap', async ({ page }) => {
@@ -65,7 +74,7 @@ test.describe('React Rebalance app', () => {
     await page.getByRole('heading', { name: 'Necesidades · Alpha' }).waitFor();
     await page.locator('.need-row').filter({ hasText: 'Backend' }).locator('input').fill('2');
     await page.getByRole('button', { name: 'Guardar necesidades' }).click();
-    await expect(alpha.getByText('2 pendientes')).toBeVisible();
+    await expect(alpha.getByText(/Vacantes: \+2/)).toBeVisible();
     expect(getBoard().needs.find(item => item.teamName === 'Alpha' && item.role === 'Backend').requiredCount).toBe(2);
     await page.getByRole('button', { name: 'Roadmap' }).click();
     await expect(page.getByRole('heading', { name: 'Roadmap' })).toBeVisible();

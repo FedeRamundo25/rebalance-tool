@@ -7,7 +7,7 @@ export function teamForMilestone(person: CapacityPerson, assignments: CapacityAs
 }
 
 export function getAllTeams(people: CapacityPerson[], assignments: CapacityAssignment[]) {
-  return [...new Set(['Payments Management', ...people.map(person => person.initialTeam), ...assignments.map(item => item.teamName)].filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  return [...new Set([...people.map(person => person.initialTeam), ...assignments.map(item => item.teamName)].filter(Boolean))].sort((a, b) => a.localeCompare(b));
 }
 
 export function getVacancyBreakdown(teamName: string, milestone: string, people: CapacityPerson[], assignments: CapacityAssignment[], needs: RoleNeed[]) {
