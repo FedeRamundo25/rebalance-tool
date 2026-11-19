@@ -23,6 +23,9 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Install new frontend dependencies reproducibly
+        run: npm ci --include=dev
+        working-directory: web
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Run unit and end-to-end tests
@@ -31,6 +34,23 @@ jobs:
         run: npm run build
       - name: Verify both pages were built
         run: test -f dist/index.html && test -f dist/app.html
+      - name: Run new frontend unit tests
+        run: npm run test:web
+      - name: Build new React frontend
+        run: npm run build
+        working-directory: web
+      - name: Validate Cloudflare Pages API proxy
+        run: node --check "functions/[[path]].js"
+        working-directory: web
+      - name: Install new API dependencies reproducibly
+        run: npm ci
+        working-directory: api
+      - name: Run API validation tests
+        run: npm test
+        working-directory: api
+      - name: Build new Node API
+        run: npm run build
+        working-directory: api
       - name: Upload Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
