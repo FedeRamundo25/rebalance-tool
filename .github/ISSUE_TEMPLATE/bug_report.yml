@@ -1,0 +1,56 @@
+name: Reportar un bug
+description: Registrar un problema para reproducirlo, priorizarlo y corregirlo.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        No incluyas contraseñas, tokens, datos personales ni información real de personas. Usá nombres ficticios y quitá datos sensibles de las capturas.
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impacto
+      options:
+        - Bloquea el uso
+        - Afecta una función importante
+        - Molestia menor
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Pantalla o enlace
+      description: Indicá dónde aparece el problema.
+      placeholder: https://rebalance-tool.pages.dev/
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducirlo
+      description: Enumerá las acciones desde que abrís Rebalance.
+      placeholder: |
+        1. Abrir ...
+        2. Seleccionar ...
+        3. Observar ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Qué esperabas que pasara
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Qué pasó en realidad
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno y evidencia
+      description: Navegador, fecha, captura sin datos sensibles o mensaje de error.
+    validations:
+      required: false

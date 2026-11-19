@@ -25,6 +25,12 @@ La API necesita las variables de `api/.env.example` cargadas en el entorno. Para
 npm run migrate --prefix api
 ```
 
+## Reportar un bug
+
+En GitHub, abrí **Issues → Reportar un bug** y completá los pasos para reproducirlo, el resultado esperado y el resultado observado. Incluí la pantalla, navegador y evidencia cuando ayude. No adjuntes credenciales ni información real de personas; usá los nombres ficticios de prueba.
+
+Las verificaciones de CI prueban la lógica, las interacciones en navegador y el build del frontend y la API. Después, una comprobación de producción confirma que Cloudflare sirve el mismo commit probado, conserva la interfaz de Rebalance y puede alcanzar el endpoint de salud de la API.
+
 ## Despliegues previstos
 
 - **Cloudflare Pages:** directorio raíz `web`, comando de build `npm ci --include=dev && npm run build`, salida `dist`. Configurar `RENDER_API_ORIGIN` con la URL del servicio `rebalance-api` en Render. La función de Pages reenvía `/api/*` y `/auth/*` para mantener la sesión en el mismo origen del frontend.

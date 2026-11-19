@@ -39,6 +39,8 @@ jobs:
       - name: Build new React frontend
         run: npm run build
         working-directory: Web
+      - name: Verify Cloudflare artifact matches this commit
+        run: node scripts/verify-cloudflare-artifact.mjs
       - name: Validate Cloudflare Pages API proxy
         run: node --check "functions/[[path]].js"
         working-directory: Web
@@ -56,6 +58,23 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
+  cloudflare-production-smoke:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Verify Cloudflare production serves this commit and the API
+        run: node scripts/smoke-cloudflare.mjs
+        env:
+          GITHUB_SHA: ${{ github.sha }}
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
