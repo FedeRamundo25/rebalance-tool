@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:new": "npm run build --prefix web && npm run build --prefix api",
+    "build:new": "npm run build --prefix Web && npm run build --prefix api",
     "test:unit": "vitest run --config vitest.config.js",
-    "test:web": "vitest run --config web/vitest.config.ts",
+    "test:web": "vitest run --config Web/vitest.config.ts",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:e2e"
   },

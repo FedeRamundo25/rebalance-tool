@@ -4,7 +4,7 @@ Tablero compartido para planificar capacidad y rotaciones de equipos.
 
 ## Estado de la migración
 
-La aplicación anterior sigue disponible en `index.html` y `app.html`. La nueva versión se construye en `web/` y `api/` sin reemplazar esos archivos: se puede revisar en un despliegue separado antes de cambiar el sitio público.
+La aplicación anterior sigue disponible en `index.html` y `app.html`. La nueva versión se construye en `Web/` y `api/`; Cloudflare Pages usa `Web/` como directorio raíz.
 
 La nueva arquitectura usa React + TypeScript, una API Node.js en Render, Neon Postgres y Google OAuth. Todas las cuentas autorizadas tienen permisos completos en esta primera versión. El acceso a producción se controla con `ALLOWED_EMAILS` o `ALLOWED_EMAIL_DOMAIN`.
 
@@ -13,9 +13,9 @@ La nueva arquitectura usa React + TypeScript, una API Node.js en Render, Neon Po
 Requiere Node.js 20.19+ y npm.
 
 ```sh
-npm ci --include=dev --prefix web
+npm ci --include=dev --prefix Web
 npm ci --include=dev --prefix api
-npm run dev --prefix web
+npm run dev --prefix Web
 npm run dev --prefix api
 ```
 
